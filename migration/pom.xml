@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>food-service</artifactId>
+        <groupId>ru.demanin</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>migration</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>4.4.3</version>
+                <configuration>
+                    <!-- схема БД.   -->
+                    <changelogSchemaName>public</changelogSchemaName>
+                    <!-- файл с кредами для подключения к БД  -->
+                    <propertyFile>src/main/resources/db/local/liquibase.properties</propertyFile>
+                    <!-- располложение глобального ченджлога  -->
+                    <changeLogFile>src/main/resources/db/master.xml</changeLogFile>
+                    <!-- Указывает каталог, в котором будут храниться CSV-файлы c данными insert. -->
+                    <dataDir>src/main/resources/db/local/data</dataDir>
+                    <!-- log  -->
+                    <verbose>false</verbose>
+                    <logging>debug</logging>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
