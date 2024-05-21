@@ -27,4 +27,6 @@ public class Restaurant {
     private String coordinates;
     @OneToMany(mappedBy = "restaurants")
     private List<Order> orders;
+    @OneToMany(mappedBy = "restaurant")
+    private List<RestaurantMenuItem> restaurantMenuItems;
 }
