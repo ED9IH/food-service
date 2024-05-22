@@ -29,5 +29,8 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "customer_id",referencedColumnName = "id")
     private Customer customers;
+    @ManyToOne
+    @JoinColumn(name = "courier_id",referencedColumnName = "id")
+    private Couriers couriers;
 
 }
