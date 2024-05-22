@@ -1,4 +1,4 @@
-create table couriers
+create table public.couriers
 (
     id          bigint generated always as identity
         constraint couriers_pk
@@ -8,8 +8,7 @@ create table couriers
     coordinates varchar not null
 );
 
-
-create table customers
+create table public.customers
 (
     id      bigint generated always as identity
         constraint customers_pk
@@ -19,52 +18,7 @@ create table customers
     address varchar not null
 );
 
-
-create table restaurants
-(
-    id          bigint  not null
-        constraint restaurants_pk
-            primary key,
-    address     varchar not null,
-    status      varchar not null,
-    name        varchar not null,
-    coordinates varchar not null
-);
-
-create table orders
-(
-    id            bigint    not null
-        constraint orders_pk
-            primary key,
-    customer_id   bigint    not null
-        constraint orders_customers_id_fk
-            references customers,
-    restaurant_id bigint    not null
-        constraint orders_restaurants_id_fk
-            references restaurants,
-    status        varchar   not null,
-    courier_id    bigint,
-    timestamp     timestamp not null
-);
-
-
-
-create table restaurant_menu_items
-(
-    id            bigint  not null
-        constraint restaurant_menu_items_pk
-            primary key,
-    restaurant_id bigint
-        constraint restaurant_menu_items_restaurants_id_fk
-            references restaurants,
-    name          varchar not null,
-    price         bigint  not null,
-    image         varchar not null,
-    description   varchar not null
-);
-
-
-create table order_items
+create table public.order_items
 (
     id                    bigint  not null
         constraint order_items_pk
@@ -79,3 +33,47 @@ create table order_items
     quantity              integer not null
 );
 
+create table public.orders
+(
+    id            bigint    not null
+        constraint orders_pk
+            primary key,
+    customer_id   bigint    not null
+        constraint orders_customers_id_fk
+            references customers,
+    restaurant_id bigint    not null
+        constraint orders_restaurants_id_fk
+            references restaurants,
+    status        varchar   not null,
+    courier_id    bigint
+        constraint orders_couriers_id_fk
+            references couriers,
+    timestamp     timestamp not null
+);
+create table public.orders
+(
+    id            bigint    not null
+        constraint orders_pk
+            primary key,
+    customer_id   bigint    not null
+        constraint orders_customers_id_fk
+            references customers,
+    restaurant_id bigint    not null
+        constraint orders_restaurants_id_fk
+            references restaurants,
+    status        varchar   not null,
+    courier_id    bigint
+        constraint orders_couriers_id_fk
+            references couriers,
+    timestamp     timestamp not null
+);
+create table public.restaurants
+(
+    id          bigint  not null
+        constraint restaurants_pk
+            primary key,
+    address     varchar not null,
+    status      varchar not null,
+    name        varchar not null,
+    coordinates varchar not null
+);
