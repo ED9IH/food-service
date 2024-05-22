@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
+
 @Entity
 @Getter
 @Setter
@@ -28,5 +29,5 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurants")
     private List<Order> orders;
     @OneToMany(mappedBy = "restaurant")
-    private List<RestaurantMenuItem> restaurantMenuItems;
+    private List<RestaurantMenuItems> restaurantMenuItems;
 }
