@@ -1,20 +1,20 @@
 package ru.demanin.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 import javax.persistence.*;
 import java.util.Date;
-
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "orders")
 public class Order {
+    public Order(String status, Date timeStamp, Restaurant restaurants, Customer customers, Couriers couriers) {
+        this.status = status;
+        this.timeStamp = timeStamp;
+        this.restaurants = restaurants;
+        this.customers = customers;
+        this.couriers = couriers;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,4 +33,55 @@ public class Order {
     @JoinColumn(name = "courier_id",referencedColumnName = "id")
     private Couriers couriers;
 
+    public Order() {
+
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Date timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public Restaurant getRestaurants() {
+        return restaurants;
+    }
+
+    public void setRestaurants(Restaurant restaurants) {
+        this.restaurants = restaurants;
+    }
+
+    public Customer getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(Customer customers) {
+        this.customers = customers;
+    }
+
+    public Couriers getCouriers() {
+        return couriers;
+    }
+
+    public void setCouriers(Couriers couriers) {
+        this.couriers = couriers;
+    }
 }

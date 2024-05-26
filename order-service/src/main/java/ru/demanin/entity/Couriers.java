@@ -1,18 +1,11 @@
 package ru.demanin.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "couriers")
 public class Couriers {
 
@@ -22,7 +15,7 @@ public class Couriers {
     private long id;
     @Column(name = "phone")
     private long phone;
-    @Column(name = "phone")
+    @Column(name = "status")
     private String status;
     @Column(name = "coordinates")
     private String coordinates;

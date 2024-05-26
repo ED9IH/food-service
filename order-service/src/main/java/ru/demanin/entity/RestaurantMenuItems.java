@@ -1,17 +1,11 @@
 package ru.demanin.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Table(name = "restaurant_menu_items")
 public class RestaurantMenuItems {
     @Id
