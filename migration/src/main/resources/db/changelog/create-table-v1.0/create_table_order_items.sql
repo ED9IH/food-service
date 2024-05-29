@@ -1,6 +1,6 @@
-create table public.order_items
+create table order_items
 (
-    id                    bigint  not null
+    id                    bigint generated always as identity
         constraint order_items_pk
             primary key,
     order_id              bigint
@@ -12,9 +12,15 @@ create table public.order_items
     price                 bigint  not null,
     quantity              integer not null
 );
+
 comment on table order_items is 'Список блюд в заказе';
+
 comment on column order_items.id is 'Идентификатор блюда в заказе';
+
 comment on column order_items.order_id is 'Идентификатор заказа';
+
 comment on column order_items.restaurant_menu_items is 'Идентификатор блюда в меню';
+
 comment on column order_items.price is 'Цена';
+
 comment on column order_items.quantity is 'Количество блюд';
