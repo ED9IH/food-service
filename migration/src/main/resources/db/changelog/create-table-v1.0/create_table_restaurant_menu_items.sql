@@ -6,9 +6,6 @@ create table restaurant_menu_items
     restaurant_id bigint  not null
         constraint "FK_restaurant_menu_items_restaurants"
             references restaurants,
-    restaurant    bigint  not null
-        constraint restaurant_menu_items_restaurants_id_fk
-            references restaurants,
     name          varchar not null,
     price         bigint  not null,
     image         varchar not null,
