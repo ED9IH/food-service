@@ -4,9 +4,15 @@ package ru.demanin.entity;
 
 import javax.persistence.*;
 import java.util.List;
-
-
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "restaurants")
 public class Restaurant {
     @Id

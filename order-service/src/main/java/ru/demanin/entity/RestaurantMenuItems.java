@@ -1,11 +1,18 @@
 package ru.demanin.entity;
 
 
-
 import javax.persistence.*;
 
-@Entity
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "restaurant_menu_items")
 public class RestaurantMenuItems {
     @Id
@@ -21,6 +28,6 @@ public class RestaurantMenuItems {
     @Column(name = "description")
     private String description;
     @ManyToOne
-    @JoinColumn(name = "restaurant_id",referencedColumnName = "id")
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
     private Restaurant restaurant;
 }

@@ -2,9 +2,18 @@ package ru.demanin.entity;
 
 
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "orders")
 public class Order {
     public Order(String status, Date timeStamp, Restaurant restaurants, Customer customers, Couriers couriers) {
@@ -33,9 +42,7 @@ public class Order {
     @JoinColumn(name = "courier_id",referencedColumnName = "id")
     private Couriers couriers;
 
-    public Order() {
 
-    }
 
     public long getId() {
         return id;
