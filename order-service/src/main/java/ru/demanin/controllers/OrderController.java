@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.demanin.dto.OrderDTO;
+import ru.demanin.dto.RestaurantDTO;
 import ru.demanin.entity.Order;
 import ru.demanin.service.OrdersService;
 
@@ -20,7 +22,7 @@ public class OrderController {
     }
 
     @GetMapping("/orders")
-    public List<Order> getOrder() {
-        return ordersService.finAll();
+    public List<OrderDTO> getOrder() {
+        return ordersService.getAllOrder();
     }
 }
