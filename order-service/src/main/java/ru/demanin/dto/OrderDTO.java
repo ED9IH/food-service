@@ -13,7 +13,7 @@ public class OrderDTO {
 
     private long id;
 
-    private RestaurantDTO restaurant;
+    private RestaurantDTO restaurantDTO;
 
     private List<OrderItemsDTO> items;
 

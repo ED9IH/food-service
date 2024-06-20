@@ -22,7 +22,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "phone")
-    private int phone;
+    private String phone;
     @Column(name = "email")
 
     private String email;

@@ -33,12 +33,8 @@ public class OrdersService {
 
     public List<OrderDTO> getAllOrder(){
         List<Order> orders= ordersRepository.findAll();
-        return orderMapper.toDtoOrder(orders);
-    }
-
-    public List<RestaurantDTO> getAll(){
-        List<Restaurant> restaurant = restaurantRepository.findAll();
-        return restaurantMapper.getAll(restaurant);
+        System.out.println(orders);
+        return orderMapper.toDto(orders);
     }
 
 
