@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import ru.demanin.dto.OrderDTO;
 import ru.demanin.dto.RestaurantDTO;
 import ru.demanin.entity.Order;
@@ -24,17 +25,15 @@ public class OrdersService {
     @Autowired
     private final OrdersRepository ordersRepository;
     @Autowired
-    private final RestaurantRepository restaurantRepository;
-    @Autowired
     private final OrderMapper orderMapper;
-    @Autowired
-    private final RestaurantMapper restaurantMapper;
+
 
 
     public List<OrderDTO> getAllOrder(){
-        List<Order> orders= ordersRepository.findAll();
-        System.out.println(orders);
-        return orderMapper.toDto(orders);
+        return orderMapper.toDto(ordersRepository.findAll());
+    }
+    public OrderDTO getOrderById(long id){
+        return orderMapper.toDto(ordersRepository.getById(id));
     }
 
 

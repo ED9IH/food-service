@@ -1,9 +1,7 @@
 package ru.demanin.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.demanin.dto.OrderDTO;
 import ru.demanin.dto.RestaurantDTO;
 import ru.demanin.entity.Order;
@@ -24,5 +22,9 @@ public class OrderController {
     @GetMapping("/orders")
     public List<OrderDTO> getOrder() {
         return ordersService.getAllOrder();
+    }
+    @GetMapping("/orders/{id}")
+    public OrderDTO getByOrderId (@PathVariable long id){
+        return ordersService.getOrderById(id);
     }
 }

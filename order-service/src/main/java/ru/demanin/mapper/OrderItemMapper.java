@@ -9,6 +9,8 @@ import ru.demanin.entity.RestaurantMenuItems;
 public interface OrderItemMapper {
     OrderItemsDTO toDto(OrderItems orderItems);
 
+    OrderItems toEntity(OrderItemsDTO orderItemsDTO);
+
     default RestaurantMenuItems mapRestaurantMenuItemIdToRestaurant(Long restaurantMenuItemId) {
         RestaurantMenuItems restaurantMenuItems = new RestaurantMenuItems();
         restaurantMenuItems.setId(restaurantMenuItemId);

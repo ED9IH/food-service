@@ -9,9 +9,11 @@ public interface OrderMapper {
 
     List<OrderDTO> toDto(List<Order> orders);
 
-    @Mapping(source = "restaurants",target = "restaurantDTO")
+    @Mapping(source = "restaurants",target = "restaurant")
+    @Mapping(source = "restaurants.restaurantMenuItems",target = "items")
     OrderDTO toDto(Order order);
-    @Mapping(source = "restaurantDTO",target = "restaurants")
+    @Mapping(source = "restaurant",target = "restaurants")
+    @Mapping(source = "items",target = "restaurants.restaurantMenuItems")
     Order toEntity(OrderDTO orderDTO);
 
 
