@@ -2,6 +2,7 @@ package ru.demanin.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.demanin.dto.CreateOrdersDTO;
 import ru.demanin.dto.OrderDTO;
 import ru.demanin.dto.RestaurantDTO;
 import ru.demanin.entity.Order;
@@ -27,4 +28,18 @@ public class OrderController {
     public OrderDTO getByOrderId (@PathVariable long id){
         return ordersService.getOrderById(id);
     }
+
+    @PostMapping("/orders/add")
+    public Order save(@RequestBody CreateOrdersDTO createOrdersDTO){
+        return ordersService.save(createOrdersDTO);
+    }
+
+
+
+//****************************Test**************************
+//    @GetMapping("/orders/test/{id}")
+//    public CreateOrdersDTO getByrId (@PathVariable long id){
+//        return ordersService.getById(id);
+//    }
+
 }
