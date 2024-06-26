@@ -1,12 +1,15 @@
 package ru.demanin.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.demanin.dto.CreateOrdersDTO;
 import ru.demanin.dto.OrderDTO;
 import ru.demanin.dto.RestaurantDTO;
 import ru.demanin.entity.Order;
 import ru.demanin.service.OrdersService;
+import ru.demanin.util.TestData;
 
 import java.util.List;
 
@@ -21,17 +24,18 @@ public class OrderController {
     }
 
     @GetMapping("/orders")
-    public List<OrderDTO> getOrder() {
-        return ordersService.getAllOrder();
+    public ResponseEntity<List<OrderDTO>> getOrder() {
+        return ResponseEntity.ok(ordersService.getAllOrder());
     }
     @GetMapping("/orders/{id}")
-    public OrderDTO getByOrderId (@PathVariable long id){
-        return ordersService.getOrderById(id);
+    public ResponseEntity<OrderDTO> getByOrderId (@PathVariable long id){
+        return  ResponseEntity.ok(ordersService.getOrderById(id));
     }
 
     @PostMapping("/orders/add")
-    public Order save(@RequestBody CreateOrdersDTO createOrdersDTO){
-        return ordersService.save(createOrdersDTO);
+    public ResponseEntity<TestData> save(@RequestBody CreateOrdersDTO createOrdersDTO){
+      ordersService.save(createOrdersDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(new TestData().get());
     }
 
 

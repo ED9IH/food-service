@@ -39,11 +39,12 @@ public class OrdersService {
     public OrderDTO getOrderById(long id) {
         return orderMapper.toDto(ordersRepository.getById(id));
     }
-    
-  public Order save(CreateOrdersDTO createOrdersDTO){
+
+    @Transactional
+    public Order save(CreateOrdersDTO createOrdersDTO) {
         return ordersRepository.save(createOrdersMapper.toEntity(createOrdersDTO));
-  }
-    
+    }
+
 //  Для тестирования
 //    public CreateOrdersDTO getById(long id){
 //        return createOrdersMapper.toDto(ordersRepository.getById(id));
