@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.demanin.dto.CreateOrdersDTO;
+import ru.demanin.dto.DeliveryDto;
 import ru.demanin.dto.OrderDTO;
 import ru.demanin.dto.RestaurantDTO;
 import ru.demanin.entity.Order;
@@ -37,6 +38,19 @@ public class OrderController {
       ordersService.save(createOrdersDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new TestData().get());
     }
+
+    @GetMapping("/orders/{status}")
+    public ResponseEntity<List<OrderDTO>> getByOrderId (@PathVariable String status) {
+        return ResponseEntity.ok(ordersService.getAllOrderStatus(status));
+    }
+    @GetMapping("/deliveries")
+    public ResponseEntity<List<DeliveryDto>>getAllDeliveries(){
+        return ResponseEntity.ok(ordersService.getAllDelivery());
+    }
+
+
+
+
 
 
 

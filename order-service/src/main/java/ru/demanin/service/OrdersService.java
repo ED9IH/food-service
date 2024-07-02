@@ -7,18 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import ru.demanin.dto.CreateOrdersDTO;
+import ru.demanin.dto.DeliveryDto;
 import ru.demanin.dto.OrderDTO;
 import ru.demanin.dto.RestaurantDTO;
 import ru.demanin.entity.Order;
 import ru.demanin.entity.Restaurant;
 import ru.demanin.mapper.CreateOrdersMapper;
+import ru.demanin.mapper.DeliveryMapper;
 import ru.demanin.mapper.OrderMapper;
 import ru.demanin.mapper.RestaurantMapper;
 import ru.demanin.repositories.OrdersRepository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.demanin.repositories.RestaurantRepository;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,10 +35,19 @@ public class OrdersService {
     private final OrderMapper orderMapper;
     @Autowired
     private final CreateOrdersMapper createOrdersMapper;
+    @Autowired
+    private DeliveryMapper deliveryMapper;
 
 
     public List<OrderDTO> getAllOrder() {
         return orderMapper.toDto(ordersRepository.findAll());
+    }
+
+    public List<OrderDTO> getAllOrderStatus(String status) {
+        return orderMapper.toDto(ordersRepository.findAll()
+                .stream().
+                filter(order -> order.getStatus().equals(status))
+                .collect(Collectors.toList()));
     }
 
     public OrderDTO getOrderById(long id) {
@@ -45,10 +59,10 @@ public class OrdersService {
         return ordersRepository.save(createOrdersMapper.toEntity(createOrdersDTO));
     }
 
-//  Для тестирования
-//    public CreateOrdersDTO getById(long id){
-//        return createOrdersMapper.toDto(ordersRepository.getById(id));
-//    }
+    //Для тестирования
+    public List<DeliveryDto> getAllDelivery() {
+        return deliveryMapper.toDto(ordersRepository.findAll());
+    }
 
 
 }
