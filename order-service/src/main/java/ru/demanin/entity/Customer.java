@@ -27,6 +27,8 @@ public class Customer {
     private String email;
     @Column(name = "address")
     private String address;
+    @Column(name = "coordinates")
+    private String coordinates;
     @OneToMany(mappedBy = "customers")
     private List<Order> orders;
 }

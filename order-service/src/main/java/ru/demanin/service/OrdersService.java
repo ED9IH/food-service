@@ -39,29 +39,36 @@ public class OrdersService {
     private DeliveryMapper deliveryMapper;
 
 
+
+//    Customer REST API
+//    GET /orders
     public List<OrderDTO> getAllOrder() {
         return orderMapper.toDto(ordersRepository.findAll());
     }
 
-    public List<OrderDTO> getAllOrderStatus(String status) {
-        return orderMapper.toDto(ordersRepository.findAll()
-                .stream().
-                filter(order -> order.getStatus().equals(status))
-                .collect(Collectors.toList()));
-    }
 
+    //    GET /order/${id}
     public OrderDTO getOrderById(long id) {
         return orderMapper.toDto(ordersRepository.getById(id));
     }
-
+//    POST /order
     @Transactional
     public Order save(CreateOrdersDTO createOrdersDTO) {
         return ordersRepository.save(createOrdersMapper.toEntity(createOrdersDTO));
     }
-
     //Для тестирования
-    public List<DeliveryDto> getAllDelivery() {
-        return deliveryMapper.toDto(ordersRepository.findAll());
+    public List<DeliveryDto> getAllDelivery(String status) {
+        return deliveryMapper.toDto(ordersRepository.findAll()
+                .stream().filter(order -> order.getStatus().equals(status))
+                .collect(Collectors.toList()));
+    }
+    @Transactional
+    public OrderDTO updateStatus(long id) {
+        Order order = ordersRepository.getById(id);
+        if (order != (null)) {
+            order.setStatus(order.getStatus());
+        }
+        return orderMapper.toDto(ordersRepository.save(order));
     }
 
 

@@ -7,16 +7,15 @@ import org.springframework.web.bind.annotation.*;
 import ru.demanin.dto.CreateOrdersDTO;
 import ru.demanin.dto.DeliveryDto;
 import ru.demanin.dto.OrderDTO;
-import ru.demanin.dto.RestaurantDTO;
-import ru.demanin.entity.Order;
 import ru.demanin.service.OrdersService;
-import ru.demanin.util.TestData;
+import ru.demanin.util.ResponseOrderPost;
 
 import java.util.List;
 
 @RestController
 @RequestMapping
 public class OrderController {
+
     public final OrdersService ordersService;
 
     @Autowired
@@ -34,18 +33,19 @@ public class OrderController {
     }
 
     @PostMapping("/orders/add")
-    public ResponseEntity<TestData> save(@RequestBody CreateOrdersDTO createOrdersDTO){
+    public ResponseEntity<ResponseOrderPost> save(@RequestBody CreateOrdersDTO createOrdersDTO){
       ordersService.save(createOrdersDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(new TestData().get());
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseOrderPost().get());
     }
 
-    @GetMapping("/orders/{status}")
-    public ResponseEntity<List<OrderDTO>> getByOrderId (@PathVariable String status) {
-        return ResponseEntity.ok(ordersService.getAllOrderStatus(status));
+    @GetMapping("/deliveries/{status}")
+    public ResponseEntity<List<DeliveryDto>>getAllDeliveries(@PathVariable String status){
+        return ResponseEntity.ok(ordersService.getAllDelivery(status));
     }
-    @GetMapping("/deliveries")
-    public ResponseEntity<List<DeliveryDto>>getAllDeliveries(){
-        return ResponseEntity.ok(ordersService.getAllDelivery());
+
+    @PostMapping("/deliveries/{id}")
+    public ResponseEntity<OrderDTO> deliver(@PathVariable long id){
+        return ResponseEntity.ok(ordersService.updateStatus(id));
     }
 
 

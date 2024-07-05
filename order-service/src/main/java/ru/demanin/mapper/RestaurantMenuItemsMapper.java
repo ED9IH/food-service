@@ -7,5 +7,6 @@ import ru.demanin.entity.RestaurantMenuItems;
 public interface RestaurantMenuItemsMapper {
 
     RestaurantMenuItemsDTO toDTO(RestaurantMenuItems restaurantMenuItems);
+
     RestaurantMenuItems toEntity(RestaurantMenuItemsDTO restaurantMenuItemsDTO);
 }

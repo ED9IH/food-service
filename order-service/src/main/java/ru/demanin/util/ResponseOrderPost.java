@@ -6,14 +6,15 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TestData {
+public class ResponseOrderPost {
+
     private long id;
 
     private String secretPaymentUrl;
 
     private String estimatedTimeOfArrival;
 
-    public TestData get(){
-        return new TestData(1,"Oplachen","10min");
+    public ResponseOrderPost get(){
+        return new ResponseOrderPost(1,"Oplachen","10min");
     }
 }

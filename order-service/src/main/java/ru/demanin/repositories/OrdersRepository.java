@@ -8,5 +8,6 @@ import ru.demanin.entity.Order;
 import java.util.List;
 
 @Repository
-public interface OrdersRepository extends JpaRepository<Order,Long> {
+public interface OrdersRepository extends JpaRepository<Order,Long>{
+
 }

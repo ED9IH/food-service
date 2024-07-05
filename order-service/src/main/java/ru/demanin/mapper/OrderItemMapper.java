@@ -11,9 +11,4 @@ public interface OrderItemMapper {
 
     OrderItems toEntity(OrderItemsDTO orderItemsDTO);
 
-    default RestaurantMenuItems mapRestaurantMenuItemIdToRestaurant(Long restaurantMenuItemId) {
-        RestaurantMenuItems restaurantMenuItems = new RestaurantMenuItems();
-        restaurantMenuItems.setId(restaurantMenuItemId);
-        return restaurantMenuItems;
-    }
 }
