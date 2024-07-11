@@ -1,32 +1,31 @@
 package ru.demanin.entity;
 
 
-
-import javax.persistence.*;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.List;
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "restaurants")
-public class Restaurant {
+@Table(name = "couriers")
+public class Couriers {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "address")
-    private String address;
-    @Column(name = "name")
-    private String name;
+    @Column(name = "phone")
+    private long phone;
+    @Column(name = "status")
+    private String status;
     @Column(name = "coordinates")
     private String coordinates;
-    @OneToMany(mappedBy = "restaurants")
+    @OneToMany
     private List<Order> orders;
-    @OneToMany(mappedBy = "restaurant")
-    private List<RestaurantMenuItems> restaurantMenuItems;
 }

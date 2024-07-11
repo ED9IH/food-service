@@ -12,6 +12,7 @@ public interface OrderMapper {
     @Mapping(source = "restaurants",target = "restaurant")
     @Mapping(source = "restaurants.restaurantMenuItems",target = "items")
     OrderDTO toDto(Order order);
+
     @Mapping(source = "restaurant",target = "restaurants")
     @Mapping(source = "items",target = "restaurants.restaurantMenuItems")
     Order toEntity(OrderDTO orderDTO);
