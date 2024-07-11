@@ -1,5 +1,4 @@
 package ru.demanin.service;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +9,7 @@ import ru.demanin.mapper.CreateOrdersMapper;
 import ru.demanin.mapper.OrderMapper;
 import ru.demanin.repositories.OrdersRepository;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -25,15 +21,11 @@ public class OrdersService {
     @Autowired
     private final CreateOrdersMapper createOrdersMapper;
 
-
-
-
 //    Customer REST API
 //    GET /orders
     public List<OrderDTO> getAllOrder() {
         return orderMapper.toDto(ordersRepository.findAll());
     }
-
 
     //    GET /order/${id}
     public OrderDTO getOrderById(long id) {
@@ -54,6 +46,5 @@ public class OrdersService {
         }
         return orderMapper.toDto(ordersRepository.save(order));
     }
-
 
 }

@@ -15,14 +15,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class KitchenService {
+
     @Autowired
     private final OrderKitchenMapper orderKitchenMapper;
     @Autowired
     private final OrderItemMapper orderItemMapper;
     @Autowired
     private final OrdersRepository ordersRepository;
-
-
 
     public List<OrderDTO> getAllDelivery() {
         return orderKitchenMapper.toOrderDTO(ordersRepository.findAll());
