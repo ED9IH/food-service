@@ -2,13 +2,17 @@ package ru.demanin.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.demanin.dto.CreateOrdersDTO;
 import ru.demanin.dto.OrderDTO;
 import ru.demanin.entity.Order;
+import ru.demanin.entity.OrderItems;
 import ru.demanin.mapper.CreateOrdersMapper;
 import ru.demanin.mapper.OrderMapper;
+import ru.demanin.repositories.OrderItemRepository;
 import ru.demanin.repositories.OrdersRepository;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -19,6 +23,8 @@ public class OrdersService {
     private final OrderMapper orderMapper;
     @Autowired
     private final CreateOrdersMapper createOrdersMapper;
+    @Autowired
+    private final OrderItemRepository orderItemRepository;
 
 //    Customer REST API
 //    GET /orders
@@ -30,6 +36,14 @@ public class OrdersService {
     public OrderDTO getOrderById(long id) {
         return orderMapper.toDto(ordersRepository.getById(id));
     }
+
+    public CreateOrdersDTO createNewOrder(OrderItems orderItems){
+
+
+
+        return null;
+    }
+
 
     @Transactional
     public OrderDTO updateStatus(long id) {

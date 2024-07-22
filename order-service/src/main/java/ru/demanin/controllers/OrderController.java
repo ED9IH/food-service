@@ -32,8 +32,6 @@ public class OrderController {
     }
 
 
-
-
     @PostMapping("/deliveries/{id}")
     public ResponseEntity<OrderDTO> deliver(@PathVariable long id){
         return ResponseEntity.ok(ordersService.updateStatus(id));

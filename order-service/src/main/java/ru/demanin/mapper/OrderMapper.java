@@ -1,7 +1,6 @@
 package ru.demanin.mapper;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 import ru.demanin.dto.OrderDTO;
 import ru.demanin.entity.Order;
 import java.util.List;
