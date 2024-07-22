@@ -31,11 +31,6 @@ public class OrderController {
         return  ResponseEntity.ok(ordersService.getOrderById(id));
     }
 
-    @PostMapping("/orders/add")
-    public ResponseEntity<ResponseOrderPost> save(@RequestBody CreateOrdersDTO createOrdersDTO){
-      ordersService.save(createOrdersDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseOrderPost().get());
-    }
 
 
 

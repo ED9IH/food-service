@@ -7,5 +7,7 @@ import lombok.Setter;
 @Setter
 public class RestaurantMenuItemsDTO {
 
-    private long id;
+    private int quantity;//+
+
+    private long id;//+
 }

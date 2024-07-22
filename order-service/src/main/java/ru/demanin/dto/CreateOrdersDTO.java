@@ -9,9 +9,7 @@ public class CreateOrdersDTO {
 
     private long restaurantId;
 
-    private int quantity;
-
-    private RestaurantMenuItemsDTO restaurantMenuItemsDTO;
+    private RestaurantMenuItemsDTO restaurantMenuItemsDTO;//+
 
 
 

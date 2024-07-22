@@ -2,7 +2,6 @@ package ru.demanin.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.demanin.dto.CreateOrdersDTO;
 import ru.demanin.dto.OrderDTO;
 import ru.demanin.entity.Order;
 import ru.demanin.mapper.CreateOrdersMapper;
@@ -24,19 +23,13 @@ public class OrdersService {
 //    Customer REST API
 //    GET /orders
     public List<OrderDTO> getAllOrder() {
-        return orderMapper.toDto(ordersRepository.findAll());
+        return orderMapper.toDtoAll(ordersRepository.findAll());
     }
 
     //    GET /order/${id}
     public OrderDTO getOrderById(long id) {
         return orderMapper.toDto(ordersRepository.getById(id));
     }
-//    POST /order
-    @Transactional
-    public Order save(CreateOrdersDTO createOrdersDTO) {
-        return ordersRepository.save(createOrdersMapper.toEntity(createOrdersDTO));
-    }
-    //Для тестирования
 
     @Transactional
     public OrderDTO updateStatus(long id) {
