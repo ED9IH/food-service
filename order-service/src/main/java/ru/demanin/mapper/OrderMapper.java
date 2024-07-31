@@ -1,6 +1,7 @@
 package ru.demanin.mapper;
 
 import org.mapstruct.*;
+import ru.demanin.dto.CreateOrdersDTO;
 import ru.demanin.dto.OrderDTO;
 import ru.demanin.entity.Order;
 import java.util.List;
@@ -13,5 +14,9 @@ public interface OrderMapper {
     @Mapping(source = "orderItems", target = "items")
     @Mapping(source = "restaurants", target = "restaurant")
     OrderDTO toDto(Order order);
+
+    @Mapping(source = "items", target = "orderItems")
+    @Mapping(source = "restaurant", target = "restaurants")
+    Order toEntity(OrderDTO orderDTO);
 
 }

@@ -1,22 +1,18 @@
 package ru.demanin.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
+@AllArgsConstructor
 public class CreateOrdersDTO {
 
-    private long restaurantId;//+
+    private long restaurant_id;//+
 
-    private RestaurantMenuItemsDTO restaurantMenuItemsDTO;//+
-
-
-
-
-
-
-
-
+    private List<RestaurantMenuItemsDTO> menuItems;//+
 
 }

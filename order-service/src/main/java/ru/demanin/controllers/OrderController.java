@@ -26,21 +26,23 @@ public class OrderController {
     public ResponseEntity<List<OrderDTO>> getOrder() {
         return ResponseEntity.ok(ordersService.getAllOrder());
     }
+
     @GetMapping("/orders/{id}")
-    public ResponseEntity<OrderDTO> getByOrderId (@PathVariable long id){
-        return  ResponseEntity.ok(ordersService.getOrderById(id));
+    public ResponseEntity<OrderDTO> getByOrderId(@PathVariable long id) {
+        return ResponseEntity.ok(ordersService.getOrderById(id));
+    }
+
+    @PostMapping("/orders/add")
+    public ResponseEntity<ResponseOrderPost> createdNewOrder(@RequestBody CreateOrdersDTO createOrdersDTO) {
+        ordersService.createNewOrder(createOrdersDTO);
+        return ResponseEntity.ok(new ResponseOrderPost().get());
     }
 
 
     @PostMapping("/deliveries/{id}")
-    public ResponseEntity<OrderDTO> deliver(@PathVariable long id){
+    public ResponseEntity<OrderDTO> deliver(@PathVariable long id) {
         return ResponseEntity.ok(ordersService.updateStatus(id));
     }
-
-
-
-
-
 
 
 //****************************Test**************************

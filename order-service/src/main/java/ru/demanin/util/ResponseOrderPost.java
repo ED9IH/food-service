@@ -15,6 +15,6 @@ public class ResponseOrderPost {
     private String estimatedTimeOfArrival;
 
     public ResponseOrderPost get(){
-        return new ResponseOrderPost(1,"Oplachen","10min");
+        return new ResponseOrderPost(1,"Payment_link","10min");
     }
 }
