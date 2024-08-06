@@ -21,6 +21,6 @@ public class KitchenController {
     }
     @GetMapping("/123")
     public ResponseEntity<List<OrderDTO>> getOrders() {
-        return  ResponseEntity.ok(kitchenService.getAllDelivery());
+        return  ResponseEntity.ok(kitchenService.getOrders());
     }
 }

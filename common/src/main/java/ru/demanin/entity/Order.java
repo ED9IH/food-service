@@ -20,8 +20,11 @@ public class Order {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(name = "status")
+
     private String status;
+
     @Column(name = "timestamp")
     private Date timeStamp;
     @ManyToOne
