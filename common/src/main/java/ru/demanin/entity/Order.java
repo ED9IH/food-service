@@ -3,6 +3,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.demanin.statusOrders.OrderStatus;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,9 +23,8 @@ public class Order {
     private long id;
 
     @Column(name = "status")
-
-    private String status;
-
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
     @Column(name = "timestamp")
     private Date timeStamp;
     @ManyToOne

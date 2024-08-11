@@ -17,4 +17,21 @@ public class RoutingMQConfig {
         return new Declarables(queueDirectFirst,  directExchange,
                 BindingBuilder.bind(queueDirectFirst).to(directExchange).with("order"));
     }
+    @Bean
+    public Declarables kitchenQueue() {
+        Queue queueDirectFirst = new Queue("kitchenQueue", true);
+        DirectExchange directExchange = new DirectExchange("directExchange");
+
+        return new Declarables(queueDirectFirst,  directExchange,
+                BindingBuilder.bind(queueDirectFirst).to(directExchange).with("kitchen"));
+    }
+    @Bean
+    public Declarables deliveryQueue() {
+        Queue queueDirectFirst = new Queue("deliveryQueue", true);
+        DirectExchange directExchange = new DirectExchange("directExchange");
+
+        return new Declarables(queueDirectFirst,  directExchange,
+                BindingBuilder.bind(queueDirectFirst).to(directExchange).with("delivery"));
+    }
+
 }

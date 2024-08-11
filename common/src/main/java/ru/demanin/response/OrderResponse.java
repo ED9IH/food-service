@@ -1,4 +1,4 @@
-package ru.demanin.dto;
+package ru.demanin.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,5 +14,7 @@ public class OrderResponse {
 
     private long id;
 
-    private String orderStatus;
+    private OrderStatus orderStatus;
+
+    private String secret_payment_url;
 }

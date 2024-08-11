@@ -35,4 +35,5 @@ public class RabbitConfiguration {
         return new RabbitTemplate(connectionFactory());
     }
 
+
 }

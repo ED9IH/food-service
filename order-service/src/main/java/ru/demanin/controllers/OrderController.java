@@ -6,10 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.demanin.dto.CreateOrdersDTO;
 import ru.demanin.dto.OrderDTO;
-import ru.demanin.dto.OrderResponse;
+import ru.demanin.response.OrderResponse;
 import ru.demanin.service.OrdersService;
 import ru.demanin.statusOrders.OrderStatus;
-import ru.demanin.util.ResponseOrderPost;
+
 
 import java.util.List;
 
@@ -35,15 +35,14 @@ public class OrderController {
     }
 
     @PostMapping("/orders/add")
-    public ResponseEntity<ResponseOrderPost> createdNewOrder(@RequestBody CreateOrdersDTO createOrdersDTO) throws JsonProcessingException {
-        ordersService.createNewOrder(createOrdersDTO);
-        return ResponseEntity.ok(new ResponseOrderPost().get());
+    public ResponseEntity<OrderResponse> createdNewOrder(@RequestBody CreateOrdersDTO createOrdersDTO) throws JsonProcessingException {
+        return ResponseEntity.ok(ordersService.createNewOrder(createOrdersDTO));
     }
 
     @PostMapping("/orders/{id}/pay")
-    public ResponseEntity<OrderResponse> orderPaid(@PathVariable long id) {
+    public ResponseEntity<OrderResponse> orderPaid(@PathVariable long id) throws JsonProcessingException {
         ordersService.paidOrders(id);
-        return ResponseEntity.ok(new OrderResponse(id, String.valueOf(OrderStatus.ORDER_PAID)));
+        return ResponseEntity.ok(new OrderResponse(id, OrderStatus.ORDER_PAID,"Заказ оплачен"));
 
     }
 

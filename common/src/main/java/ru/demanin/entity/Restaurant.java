@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.demanin.statusOrders.RestaurantStatus;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,6 +22,9 @@ public class Restaurant {
     private long id;
     @Column(name = "address")
     private String address;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private RestaurantStatus restaurantStatus;
     @Column(name = "name")
     private String name;
     @Column(name = "coordinates")
