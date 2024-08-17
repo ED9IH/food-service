@@ -16,8 +16,8 @@ import ru.demanin.repositories.OrdersRepository;
 import ru.demanin.repositories.RestaurantRepository;
 import ru.demanin.response.KitchenResponse;
 import ru.demanin.response.RestaurantResponse;
-import ru.demanin.statusOrders.OrderStatus;
-import ru.demanin.statusOrders.RestaurantStatus;
+import ru.demanin.status.OrderStatus;
+import ru.demanin.status.RestaurantStatus;
 
 
 import java.util.List;
@@ -37,6 +37,7 @@ public class KitchenService {
     private final ObjectMapper objectMapper;
     @Autowired
     private final RestaurantRepository restaurantRepository;
+
 
     public List<OrderDTO> getOrders() {
         return orderKitchenMapper.toOrderDTO(ordersRepository.findAll().stream().filter(order -> order.getStatus().equals(OrderStatus.ORDER_PAID)).collect(Collectors.toList()));
@@ -68,9 +69,9 @@ public class KitchenService {
     @Transactional
     public KitchenResponse updateStatusOrderСompleted(Long id) throws JsonProcessingException {
         Order order = ordersRepository.findById(id).orElseThrow(()-> new RuntimeException("Order not found"));
-        order.setStatus(OrderStatus.ORDER_COMPLETE);
+        order.setStatus(OrderStatus.WAITING_FOR_COURIER);
         ordersRepository.save(order);
-        if(order.getStatus().equals(OrderStatus.ORDER_COMPLETE)){
+        if(order.getStatus().equals(OrderStatus.WAITING_FOR_COURIER)){
             RabbitMessage orderRabbitMessage = new RabbitMessage(order.getId(),"orderQueue","Заказ готов и ожидает курьера");
             rabbitProducerServiceImpl.sendMessage(objectMapper.writeValueAsString(orderRabbitMessage),
                     "order");
@@ -78,6 +79,8 @@ public class KitchenService {
             rabbitProducerServiceImpl.sendMessage(objectMapper.writeValueAsString(deliveryrabbitMessage),
                     "delivery");
         }
+
+
         return new KitchenResponse(id,order.getStatus());
     }
 

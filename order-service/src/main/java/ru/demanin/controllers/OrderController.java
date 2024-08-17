@@ -3,12 +3,13 @@ package ru.demanin.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.web.bind.annotation.*;
 import ru.demanin.dto.CreateOrdersDTO;
 import ru.demanin.dto.OrderDTO;
 import ru.demanin.response.OrderResponse;
 import ru.demanin.service.OrdersService;
-import ru.demanin.statusOrders.OrderStatus;
+import ru.demanin.status.OrderStatus;
 
 
 import java.util.List;
@@ -16,13 +17,8 @@ import java.util.List;
 @RestController
 @RequestMapping
 public class OrderController {
-
-    public final OrdersService ordersService;
-
     @Autowired
-    public OrderController(OrdersService ordersService) {
-        this.ordersService = ordersService;
-    }
+    public  OrdersService ordersService;
 
     @GetMapping("/orders")
     public ResponseEntity<List<OrderDTO>> getOrder() {
@@ -44,6 +40,11 @@ public class OrderController {
         ordersService.paidOrders(id);
         return ResponseEntity.ok(new OrderResponse(id, OrderStatus.ORDER_PAID,"Заказ оплачен"));
 
+    }
+    @GetMapping("/orders/12345")
+    public ResponseEntity<OrderResponse> asd(){
+        ordersService.appointCourier(1);
+        return ResponseEntity.ok(new OrderResponse(15,OrderStatus.ORDER_PAID,"asd"));
     }
 
 

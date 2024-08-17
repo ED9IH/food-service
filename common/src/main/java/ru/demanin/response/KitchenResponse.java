@@ -3,7 +3,7 @@ package ru.demanin.response;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.demanin.statusOrders.OrderStatus;
+import ru.demanin.status.OrderStatus;
 
 @Getter
 @Setter

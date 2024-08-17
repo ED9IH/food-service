@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.demanin.status.CouriersStatus;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,7 +24,8 @@ public class Couriers {
     @Column(name = "phone")
     private long phone;
     @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private CouriersStatus status;
     @Column(name = "coordinates")
     private String coordinates;
     @OneToMany

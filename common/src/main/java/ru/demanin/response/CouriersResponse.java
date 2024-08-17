@@ -3,14 +3,13 @@ package ru.demanin.response;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.demanin.status.RestaurantStatus;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class RestaurantResponse {
+public class CouriersResponse {
 
-    private long restaurantId;
+    private long id;
 
-    private RestaurantStatus response;
+    private String message;
 }
