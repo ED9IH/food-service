@@ -6,8 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.demanin.dto.OrderDTO;
 import ru.demanin.response.KitchenResponse;
+import ru.demanin.response.RestaurantResponse;
 import ru.demanin.service.KitchenService;
 import ru.demanin.status.OrderStatus;
+import ru.demanin.status.RestaurantStatus;
 
 import java.util.List;
 
@@ -16,7 +18,6 @@ import java.util.List;
 public class KitchenController {
     @Autowired
     private KitchenService kitchenService;
-
 
     @GetMapping("/new")
     public ResponseEntity<List<OrderDTO>> getOrders() {
@@ -35,10 +36,16 @@ public class KitchenController {
         return ResponseEntity.ok(new KitchenResponse(id, OrderStatus.ORDER_DENIED));
     }
 
-    @PostMapping("/{id}/complete")
-    public ResponseEntity<KitchenResponse> updateOrdersComplete(@PathVariable long id) throws JsonProcessingException {
-        kitchenService.updateStatusOrderСompleted(id);
-        return ResponseEntity.ok(new KitchenResponse(id, OrderStatus.ORDER_COMPLETE));
+    @PostMapping("/{id}/open")
+    public ResponseEntity<RestaurantResponse> openRestaurant(@PathVariable long id) throws JsonProcessingException {
+        kitchenService.openRestaurant(id);
+        return ResponseEntity.ok(new RestaurantResponse(id,RestaurantStatus.OPEN));
+    }
+
+    @PostMapping("/{id}/close")
+    public ResponseEntity<RestaurantResponse> updateOrdersComplete(@PathVariable long id) throws JsonProcessingException {
+        kitchenService.closeRestaurant(id);
+        return ResponseEntity.ok(new RestaurantResponse(id, RestaurantStatus.CLOSED));
     }
 
 }

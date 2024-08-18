@@ -24,11 +24,6 @@ public class DeliveryController {
     public ResponseEntity<List<DeliveryDto>> getAllDeliveriesCompleted() {
         return ResponseEntity.ok(deliveryService.getAllDeliveryCompleted());
     }
-    @PostMapping("/appoint/{id}")
-    public ResponseEntity<CouriersResponse> appointCourier(@PathVariable long id) throws JsonProcessingException {
-        deliveryService.appointCourier(id);
-        return ResponseEntity.ok(new CouriersResponse(id,"Курьер " + id + " назначен"));
-    }
     @PostMapping("/completed/{id}")
     public ResponseEntity<CouriersResponse> completedOrder(@PathVariable long id){
         deliveryService.completedOrder(id);

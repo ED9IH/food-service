@@ -1,8 +1,6 @@
 package ru.demanin.service;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.demanin.response.OrderResponse;
 import ru.demanin.status.CouriersStatus;
 import ru.demanin.status.OrderStatus;
-
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -86,19 +81,21 @@ public class OrdersService {
     public Order paidOrders(long id) throws JsonProcessingException {
         Order order = ordersRepository.getById(id);
         order.setStatus(OrderStatus.ORDER_PAID);
-        RabbitMessage rabbitMessage = new RabbitMessage
+        RabbitMessage paidOrders = new RabbitMessage
                 (order.getId(), "kitchenQueue", "Новый заказ оплачен и ожидает подтверждения.");
-        rabbitProducerServiceImpl.sendMessage(objectMapper.writeValueAsString(rabbitMessage),
+        rabbitProducerServiceImpl.sendMessage(objectMapper.writeValueAsString(paidOrders),
                 "kitchen");
+        RabbitMessage pushNotification = new RabbitMessage
+                (order.getId(), "notificationQueue", "Новый заказ оплачен и ожидает подтверждения.");
+        rabbitProducerServiceImpl.sendMessage(objectMapper.writeValueAsString(pushNotification),
+                "notification");
         return ordersRepository.save(order);
     }
 
 
     public Long getPrice(long id) {
         List<RestaurantMenuItems> restaurantMenuItems = restaurantMenuItemsRepository.findAll();
-        Long getPrice = restaurantMenuItems.stream().filter(restaurantMenuItems1 -> restaurantMenuItems1.getId() == id).map(RestaurantMenuItems::getPrice).findAny().get();
-        return getPrice;
-
+        return restaurantMenuItems.stream().filter(restaurantMenuItems1 -> restaurantMenuItems1.getId() == id).map(RestaurantMenuItems::getPrice).findAny().get();
     }
 
     public void appointCourier(long id) {

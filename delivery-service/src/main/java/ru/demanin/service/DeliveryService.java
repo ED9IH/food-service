@@ -47,42 +47,7 @@ public class DeliveryService {
                 .stream().filter(order -> order.getStatus().equals(OrderStatus.ORDER_COMPLETE))
                 .collect(Collectors.toList()));
     }
-    @Transactional
-    public void appointCourier(long id) throws JsonProcessingException {
-        Order order = ordersRepository.getById(id);
-        List<Couriers> couriers = couriersRepository.findAll().stream()
-                .filter(courier -> courier.getStatus().equals(CouriersStatus.COURIER_AVAILABLE))
-                .toList();
 
-        String x = order.getRestaurants().getCoordinates();
-        String[] coordinates = x.split(",");
-        double latitude = Double.parseDouble(coordinates[0]);
-        double longitude = Double.parseDouble(coordinates[1]);
-        double closestDistance = Double.MAX_VALUE;
-        Couriers closestCourier = null;
-
-        for (Couriers courier : couriers) {
-            String[] coords = courier.getCoordinates().split(",");
-            double courierLatitude = Double.parseDouble(coords[0]);
-            double courierLongitude = Double.parseDouble(coords[1]);
-            double distance = getDistance(latitude, longitude, courierLatitude, courierLongitude);
-
-            if (distance < closestDistance) {
-                closestDistance = distance;
-                closestCourier = courier;
-            }
-
-        }
-        order.setCouriers(closestCourier);
-        ordersRepository.save(order);
-
-        RabbitMessage rabbitMessage = new RabbitMessage(id, "orderQueue", "Курьер назначен и скоро будет у вас");
-        rabbitProducerService.sendMessage(objectMapper.writeValueAsString(rabbitMessage), "order");
-    }
-
-    public double getDistance(double x1, double y1, double x2, double y2) {
-        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-    }
 
     @Transactional
     public CouriersResponse acceptedOrder(long id) {
