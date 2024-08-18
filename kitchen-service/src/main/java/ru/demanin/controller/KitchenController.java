@@ -35,6 +35,11 @@ public class KitchenController {
         kitchenService.updateStatusOrderDenied(id);
         return ResponseEntity.ok(new KitchenResponse(id, OrderStatus.ORDER_DENIED));
     }
+    @PostMapping("/{id}/completed")
+    public ResponseEntity<KitchenResponse> updateStatusOrderСompleted(@PathVariable long id) throws JsonProcessingException {
+        kitchenService.updateStatusOrderСompleted(id);
+        return ResponseEntity.ok(new KitchenResponse(id, OrderStatus.ORDER_COMPLETE));
+    }
 
     @PostMapping("/{id}/open")
     public ResponseEntity<RestaurantResponse> openRestaurant(@PathVariable long id) throws JsonProcessingException {
