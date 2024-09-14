@@ -49,7 +49,7 @@ public class OrdersService {
     }
 
     public OrderDTO getOrderById(long id) {
-        return orderMapper.toDto(ordersRepository.getById(id));
+        return orderMapper.toDto(ordersRepository.findById(id).orElseThrow(()-> new RuntimeException("Order not found")));
     }
 
     @Transactional
@@ -63,8 +63,10 @@ public class OrdersService {
 
         List<OrderItems> orderItems = order.getOrderItems();
         orderItems.forEach(orderItems1 -> orderItems1.setOrder(order));
-        orderItems.forEach(orderItems1 -> orderItems1.setRestaurantMenuItems(restaurantMenuItemsRepository.getById(createOrdersDTO.getMenuItems().stream().map(RestaurantMenuItemsDTO::getId).findAny().get())));
-        orderItems.forEach(orderItems1 -> orderItems1.setPrice(getPrice(createOrdersDTO.getMenuItems().stream().map(RestaurantMenuItemsDTO::getId).findAny().get())));
+        orderItems.forEach(orderItems1 -> orderItems1.setRestaurantMenuItems(restaurantMenuItemsRepository.getById(createOrdersDTO.getMenuItems()
+                .stream().map(RestaurantMenuItemsDTO::getId).findAny().orElseThrow(()-> new RuntimeException("Not found RestaurantMenuItems")))));
+        orderItems.forEach(orderItems1 -> orderItems1.setPrice(getPrice(createOrdersDTO.getMenuItems().stream()
+                .map(RestaurantMenuItemsDTO::getId).findAny().orElseThrow(()->new RuntimeException("Not found price")))));
         orderItemRepository.saveAll(orderItems);
         RabbitMessage orderQueue = new RabbitMessage
                 (order.getId(), "orderQueue", "Новый заказ создан и ожидает оплаты.");
@@ -79,7 +81,7 @@ public class OrdersService {
 
     @Transactional
     public Order paidOrders(long id) throws JsonProcessingException {
-        Order order = ordersRepository.getById(id);
+        Order order = ordersRepository.findById(id).orElseThrow(()-> new RuntimeException("Order not found"));
         order.setStatus(OrderStatus.ORDER_PAID);
         RabbitMessage paidOrders = new RabbitMessage
                 (order.getId(), "kitchenQueue", "Новый заказ оплачен и ожидает подтверждения.");
@@ -92,14 +94,13 @@ public class OrdersService {
         return ordersRepository.save(order);
     }
 
-
     public Long getPrice(long id) {
         List<RestaurantMenuItems> restaurantMenuItems = restaurantMenuItemsRepository.findAll();
         return restaurantMenuItems.stream().filter(restaurantMenuItems1 -> restaurantMenuItems1.getId() == id).map(RestaurantMenuItems::getPrice).findAny().get();
     }
 
     public void appointCourier(long id) {
-        Order order = ordersRepository.getById(id);
+        Order order = ordersRepository.findById(id).orElseThrow(()-> new RuntimeException("Order not found"));
         List<Couriers> couriers = couriersRepository.findAll().stream()
                 .filter(courier -> courier.getStatus().equals(CouriersStatus.COURIER_AVAILABLE))
                 .toList();

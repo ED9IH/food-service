@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: foodservice
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./migration/src/main/resources/db/changelog/create-table-v1.0/create_table_for_docker.sql:/docker-entrypoint-initdb.d/create_table_for_docker.sql

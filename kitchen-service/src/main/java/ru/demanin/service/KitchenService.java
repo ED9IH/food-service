@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.demanin.dto.OrderDTO;
@@ -12,6 +14,7 @@ import ru.demanin.entity.Couriers;
 import ru.demanin.entity.Order;
 import ru.demanin.entity.Restaurant;
 import ru.demanin.mapper.OrderKitchenMapper;
+import ru.demanin.queueListeners.QueueListener;
 import ru.demanin.rabbitProducerServices.RabbitProducerServiceImpl;
 import ru.demanin.repositories.CouriersRepository;
 import ru.demanin.repositories.OrdersRepository;
@@ -42,6 +45,9 @@ public class KitchenService {
     private final RestaurantRepository restaurantRepository;
     @Autowired
     private final CouriersRepository couriersRepository;
+    @Autowired
+    private final QueueListener queueListener;
+
 
 
     public List<OrderDTO> getOrders() {
@@ -155,6 +161,8 @@ public class KitchenService {
         restaurantRepository.save(restaurant);
         return new RestaurantResponse(restaurant.getId(),restaurant.getRestaurantStatus());
     }
+
+
 
 
 }

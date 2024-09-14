@@ -2,6 +2,7 @@ package ru.demanin.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.demanin.dto.OrderDTO;
@@ -35,6 +36,7 @@ public class KitchenController {
         kitchenService.updateStatusOrderDenied(id);
         return ResponseEntity.ok(new KitchenResponse(id, OrderStatus.ORDER_DENIED));
     }
+
     @PostMapping("/{id}/completed")
     public ResponseEntity<KitchenResponse> updateStatusOrderСompleted(@PathVariable long id) throws JsonProcessingException {
         kitchenService.updateStatusOrderСompleted(id);
@@ -44,7 +46,7 @@ public class KitchenController {
     @PostMapping("/{id}/open")
     public ResponseEntity<RestaurantResponse> openRestaurant(@PathVariable long id) throws JsonProcessingException {
         kitchenService.openRestaurant(id);
-        return ResponseEntity.ok(new RestaurantResponse(id,RestaurantStatus.OPEN));
+        return ResponseEntity.ok(new RestaurantResponse(id, RestaurantStatus.OPEN));
     }
 
     @PostMapping("/{id}/close")
